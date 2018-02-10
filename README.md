@@ -12,11 +12,20 @@ If you have a STM32F469 Disovery board the hex file can be used directly, if not
 Then open up your favourite terminal program, connect to the serial port and type away! (Baudrate 115200)
 
 On OSX, search for the serial port
+
 `` ls /dev/tty.* ``
+
 Then connect using screen
+
 `` screen <enter serial port here> 115200 ``
 	
-There are a few quirks, Upper and lower case letters work exactly the same as well as the number keys, the arrows keys have been moved to the 'wasd' keys, while holding down the option key (w->∑->up, a->å->left, s->ß->down, d->∂->right). Currently non-letters are not supported, but they may be in the future.
+There are a few quirks, Upper and lower case letters work exactly the same as well as the number keys, the arrows keys have been moved to the 'wasd' keys, while holding down the option key;
+- w->∑->up
+- a->å->left
+- s->ß->down
+- d->∂->right
+
+Currently non-letters are not supported, but they may be in the future.
 
 
 
