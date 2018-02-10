@@ -113,7 +113,7 @@ int main(void) {
 	MX_USB_DEVICE_Init();
 
 	/* USER CODE BEGIN 2 */
-	uint8_t receivedData = 0;
+	uint8_t receivedData[3];
 
 	/* USER CODE END 2 */
 
@@ -123,28 +123,31 @@ int main(void) {
 		/* USER CODE END WHILE */
 
 		/* USER CODE BEGIN 3 */
+		receivedData[0] = 0;
+		receivedData[1] = 0;
+		receivedData[2] = 0;
 
-		HAL_UART_Receive(&huart3, &receivedData, 1, 100);
-		HAL_UART_Transmit(&huart3, &receivedData, 1, 100);
+		HAL_UART_Receive(&huart3, receivedData, 3, 10);
+		HAL_UART_Transmit(&huart3, receivedData, 3, 10);
 
 		//Capital letters
-		if (receivedData >= 0x41 && receivedData <= 0x5A) {
-			keyboardHID.key1 = KB_A + (receivedData - 0x41);
+		if (receivedData[0] >= 0x41 && receivedData[0] <= 0x5A) {
+			keyboardHID.key1 = KB_A + (receivedData[0] - 0x41);
 			keyboardHID.modifiers = 0x02;
 			USBD_HID_SendReport(&hUsbDeviceFS, &keyboardHID,
 					sizeof(struct keyboardHID_t));
 			HAL_Delay(30);
 		}
 		//lower case letters
-		else if (receivedData >= 0x61 && receivedData <= 0x7A) {
-			keyboardHID.key1 = KB_A + (receivedData - 0x61);
+		else if (receivedData[0] >= 0x61 && receivedData[0] <= 0x7A) {
+			keyboardHID.key1 = KB_A + (receivedData[0] - 0x61);
 			keyboardHID.modifiers = 0;
 			USBD_HID_SendReport(&hUsbDeviceFS, &keyboardHID,
 					sizeof(struct keyboardHID_t));
 			HAL_Delay(30);
 		}
 		//Enter
-		else if (receivedData == 0x0D) {
+		else if (receivedData[0] == 0x0D) {
 			keyboardHID.key1 = KB_ENTER;
 			keyboardHID.modifiers = 0;
 			USBD_HID_SendReport(&hUsbDeviceFS, &keyboardHID,
@@ -152,15 +155,74 @@ int main(void) {
 			HAL_Delay(30);
 		}
 		//Space
-		else if (receivedData == 0x20) {
+		else if (receivedData[0] == 0x20) {
 			keyboardHID.key1 = KB_SPACEBAR;
 			keyboardHID.modifiers = 0;
 			USBD_HID_SendReport(&hUsbDeviceFS, &keyboardHID,
 					sizeof(struct keyboardHID_t));
 			HAL_Delay(30);
 		}
+		//Numbers 1-9
+		else if (receivedData[0] >= 0x31 && receivedData[0] <= 0x39) {
+			keyboardHID.key1 = KB_1 + (receivedData[0] - 0x31);
+			keyboardHID.modifiers = 0;
+			USBD_HID_SendReport(&hUsbDeviceFS, &keyboardHID,
+					sizeof(struct keyboardHID_t));
+			HAL_Delay(30);
+		}
+		//Number 0
+		else if (receivedData[0] == 0x30) {
+			keyboardHID.key1 = KB_0;
+			keyboardHID.modifiers = 0;
+			USBD_HID_SendReport(&hUsbDeviceFS, &keyboardHID,
+					sizeof(struct keyboardHID_t));
+			HAL_Delay(30);
+		}
+		//Up arrow
+		else if (receivedData[0] == 0xe2 && receivedData[1] == 0x88
+				&& receivedData[2] == 0x91) {
+			keyboardHID.key1 = KB_UP;
+			keyboardHID.modifiers = 0;
+			USBD_HID_SendReport(&hUsbDeviceFS, &keyboardHID,
+					sizeof(struct keyboardHID_t));
+			HAL_Delay(30);
+		}
 
-		if (receivedData != 0) {
+		//Left arrow
+		else if (receivedData[0] == 0xc3 && receivedData[1] == 0xa5) {
+			keyboardHID.key1 = KB_LEFT;
+			keyboardHID.modifiers = 0;
+			USBD_HID_SendReport(&hUsbDeviceFS, &keyboardHID,
+					sizeof(struct keyboardHID_t));
+			HAL_Delay(30);
+		}
+		//Down arrow
+		else if (receivedData[0] == 0xc3 && receivedData[1] == 0x9f) {
+			keyboardHID.key1 = KB_DOWN;
+			keyboardHID.modifiers = 0;
+			USBD_HID_SendReport(&hUsbDeviceFS, &keyboardHID,
+					sizeof(struct keyboardHID_t));
+			HAL_Delay(30);
+		}
+		//right arrow
+		else if (receivedData[0] == 0xe2 && receivedData[1] == 0x88
+				&& receivedData[2] == 0x82) {
+			keyboardHID.key1 = KB_RIGHT;
+			keyboardHID.modifiers = 0;
+			USBD_HID_SendReport(&hUsbDeviceFS, &keyboardHID,
+					sizeof(struct keyboardHID_t));
+			HAL_Delay(30);
+		}
+		//Backspace
+		else if (receivedData[0] == 0xc5 && receivedData[1] == 0x93) {
+			keyboardHID.key1 = KB_BACKSPC;
+			keyboardHID.modifiers = 0;
+			USBD_HID_SendReport(&hUsbDeviceFS, &keyboardHID,
+					sizeof(struct keyboardHID_t));
+			HAL_Delay(30);
+		}
+
+		if (receivedData[0] != 0) {
 			keyboardHID.key1 = 0;
 			keyboardHID.modifiers = 0;
 			USBD_HID_SendReport(&hUsbDeviceFS, &keyboardHID,
@@ -171,8 +233,6 @@ int main(void) {
 
 		keyboardHID.key1 = 0;
 		keyboardHID.modifiers = 0;
-
-		receivedData = 0;
 
 	}
 

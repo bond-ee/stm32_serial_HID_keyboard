@@ -25,6 +25,10 @@ There are a few quirks, Upper and lower case letters work exactly the same as we
 - s->ß->down
 - d->∂->right
 
+Backspace is option + q 
+
+Delete - Not currently implemented
+
 Currently non-letters are not supported, but they may be in the future.
 
 

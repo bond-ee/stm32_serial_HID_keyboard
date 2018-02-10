@@ -59,3 +59,11 @@
 #define KB_- 0x2D
 #define KB_= 0x2C
 #define KN_[ 0x2D
+
+#define KB_UP 0x52
+#define KB_LEFT 0x50
+#define KB_DOWN 0x51
+#define KB_RIGHT 0x4F
+
+
+
