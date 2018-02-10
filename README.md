@@ -1,11 +1,11 @@
-#Serial to USB HID Keyboard Passthrough using the STM32
+# Serial to USB HID Keyboard Passthrough using the STM32
 
 The beginnings of the project can be found on my [website](https://www.bond-ee.com/serial-to-hid-keyboard-passthrough).   
 
-##What is it used for?
+## What is it used for?
 
 For when you dont have a usb keyboard around, but you do have a laptop and a STM32 discovery board. It all started when I was working on a project involving a Raspberry Pi, the login password had been forgotten so SSH was out and I didnt have a Keyboard laying around!  
-##How do I used it?
+## How do I used it?
 
 If you have a STM32F469 Disovery board the hex file can be used directly, if not you can set your board up using CubeMX (details on the setup can be found on my website link above), then adding in the necessary .h and .c files. 
  
