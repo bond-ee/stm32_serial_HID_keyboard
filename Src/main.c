@@ -53,6 +53,8 @@
 /* USER CODE BEGIN Includes */
 #include "hid_keyboard.h"
 
+//#define OSX
+
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -179,8 +181,13 @@ int main(void) {
 			HAL_Delay(30);
 		}
 		//Up arrow
+#ifdef OSX
 		else if (receivedData[0] == 0xe2 && receivedData[1] == 0x88
 				&& receivedData[2] == 0x91) {
+
+#else
+		else if (receivedData[0] == 0x1b && receivedData[1] == ASCII_w) {
+#endif
 			keyboardHID.key1 = KB_UP;
 			keyboardHID.modifiers = 0;
 			USBD_HID_SendReport(&hUsbDeviceFS, &keyboardHID,
@@ -189,7 +196,12 @@ int main(void) {
 		}
 
 		//Left arrow
+#ifdef OSX
 		else if (receivedData[0] == 0xc3 && receivedData[1] == 0xa5) {
+
+#else
+		else if (receivedData[0] == 0x1b && receivedData[1] == ASCII_a) {
+#endif
 			keyboardHID.key1 = KB_LEFT;
 			keyboardHID.modifiers = 0;
 			USBD_HID_SendReport(&hUsbDeviceFS, &keyboardHID,
@@ -197,7 +209,14 @@ int main(void) {
 			HAL_Delay(30);
 		}
 		//Down arrow
+
+#ifdef OSX
 		else if (receivedData[0] == 0xc3 && receivedData[1] == 0x9f) {
+
+#else
+		else if (receivedData[0] == 0x1b && receivedData[1] == ASCII_s) {
+
+#endif
 			keyboardHID.key1 = KB_DOWN;
 			keyboardHID.modifiers = 0;
 			USBD_HID_SendReport(&hUsbDeviceFS, &keyboardHID,
@@ -205,8 +224,15 @@ int main(void) {
 			HAL_Delay(30);
 		}
 		//right arrow
+
+#ifdef OSX
 		else if (receivedData[0] == 0xe2 && receivedData[1] == 0x88
 				&& receivedData[2] == 0x82) {
+
+#else
+		else if (receivedData[0] == 0x1b && receivedData[1] == ASCII_d) {
+
+#endif
 			keyboardHID.key1 = KB_RIGHT;
 			keyboardHID.modifiers = 0;
 			USBD_HID_SendReport(&hUsbDeviceFS, &keyboardHID,
@@ -214,8 +240,25 @@ int main(void) {
 			HAL_Delay(30);
 		}
 		//Backspace
+#ifdef OSX
 		else if (receivedData[0] == 0xc5 && receivedData[1] == 0x93) {
+#else
+		else if (receivedData[0] == 0x1b && receivedData[1] == ASCII_q) {
+#endif
+
 			keyboardHID.key1 = KB_BACKSPC;
+			keyboardHID.modifiers = 0;
+			USBD_HID_SendReport(&hUsbDeviceFS, &keyboardHID,
+					sizeof(struct keyboardHID_t));
+			HAL_Delay(30);
+		}
+
+#ifdef OSX
+		//TODO: Add delete for OSX
+#else
+		else if (receivedData[0] == 0x1b && receivedData[1] == ASCII_e) {
+#endif
+			keyboardHID.key1 = KB_DELETE;
 			keyboardHID.modifiers = 0;
 			USBD_HID_SendReport(&hUsbDeviceFS, &keyboardHID,
 					sizeof(struct keyboardHID_t));

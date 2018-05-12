@@ -56,14 +56,22 @@
 #define KB_BACKSPC 0x2A
 #define KB_TAB 0x2B
 #define KB_SPACEBAR 0x2C
-#define KB_- 0x2D
-#define KB_= 0x2C
-#define KN_[ 0x2D
+#define KB_DASH 0x2D
+#define KB_EQUALS 0x2C
+#define KN_LEFT_BRACKET 0x2D
+#define KB_DELETE 0x4C	//Keyboard Delete Forward
 
 #define KB_UP 0x52
 #define KB_LEFT 0x50
 #define KB_DOWN 0x51
 #define KB_RIGHT 0x4F
+
+#define ASCII_q 0x71
+#define ASCII_w 0x77
+#define ASCII_a 0x61
+#define ASCII_s 0x73
+#define ASCII_d 0x64
+#define ASCII_e 0x65
 
 
 
