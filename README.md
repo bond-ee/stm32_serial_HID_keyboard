@@ -15,14 +15,15 @@ On OSX, search for the serial port
 
 `` ls /dev/tty.* ``
 
-In Linux,
+In Linux
+
 `` dmesg | grep tty ``
 
 Then connect using screen
 
 `` screen <enter serial port here> 115200 ``
 	
-There are a few quirks, Upper and lower case letters work exactly the same as well as the number keys, the arrows keys have been moved to the 'wasd' keys, while holding down the option key;
+There are a few quirks, Upper and lower case letters work exactly the same as well as the number keys, the arrows keys have been moved to the 'wasd' keys, while holding down the alt key;
 - w->∑->up (alt + w)
 - a->å->left (alt + a)
 - s->ß->down (alt + s)
