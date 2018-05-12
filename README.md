@@ -5,7 +5,7 @@ The beginnings of the project can be found on my [website](https://www.bond-ee.c
 ## What is it used for?
 
 For when you dont have a usb keyboard around, but you do have a laptop and a STM32 discovery board. It all started when I was working on a project involving a Raspberry Pi, the login password had been forgotten so SSH was out and I didnt have a Keyboard laying around!  
-## How do I used it?
+## How do I use it?
 
 If you have a STM32F469 Disovery board the hex file can be used directly, if not you can set your board up using CubeMX (details on the setup can be found on my website link above), then adding in the necessary .h and .c files. 
  
@@ -15,21 +15,26 @@ On OSX, search for the serial port
 
 `` ls /dev/tty.* ``
 
+In Linux,
+`` dmesg | grep tty ``
+
 Then connect using screen
 
 `` screen <enter serial port here> 115200 ``
 	
 There are a few quirks, Upper and lower case letters work exactly the same as well as the number keys, the arrows keys have been moved to the 'wasd' keys, while holding down the option key;
-- w->∑->up
-- a->å->left
-- s->ß->down
-- d->∂->right
+- w->∑->up (alt + w)
+- a->å->left (alt + a)
+- s->ß->down (alt + s)
+- d->∂->right (alt + d)
 
-Backspace is option + q 
+Backspace is alt + q 
 
-Delete - Not currently implemented
+~~Delete - Not currently implemented~~
 
-Currently non-letters are not supported, but they may be in the future.
+Delete is alt + e
+
+~~Currently non-letters are not supported, but they may be in the future.~~
 
 
 

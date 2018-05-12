@@ -53,6 +53,8 @@
 /* USER CODE BEGIN Includes */
 #include "hid_keyboard.h"
 
+//#define OSX
+
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -114,6 +116,7 @@ int main(void) {
 
 	/* USER CODE BEGIN 2 */
 	uint8_t receivedData[3];
+	uint8_t send = 0;
 
 	/* USER CODE END 2 */
 
@@ -134,106 +137,326 @@ int main(void) {
 		if (receivedData[0] >= 0x41 && receivedData[0] <= 0x5A) {
 			keyboardHID.key1 = KB_A + (receivedData[0] - 0x41);
 			keyboardHID.modifiers = 0x02;
-			USBD_HID_SendReport(&hUsbDeviceFS, &keyboardHID,
-					sizeof(struct keyboardHID_t));
-			HAL_Delay(30);
+			send = 1;
 		}
 		//lower case letters
 		else if (receivedData[0] >= 0x61 && receivedData[0] <= 0x7A) {
 			keyboardHID.key1 = KB_A + (receivedData[0] - 0x61);
 			keyboardHID.modifiers = 0;
-			USBD_HID_SendReport(&hUsbDeviceFS, &keyboardHID,
-					sizeof(struct keyboardHID_t));
-			HAL_Delay(30);
+			send = 1;
 		}
 		//Enter
 		else if (receivedData[0] == 0x0D) {
 			keyboardHID.key1 = KB_ENTER;
 			keyboardHID.modifiers = 0;
-			USBD_HID_SendReport(&hUsbDeviceFS, &keyboardHID,
-					sizeof(struct keyboardHID_t));
-			HAL_Delay(30);
+			send = 1;
 		}
 		//Space
 		else if (receivedData[0] == 0x20) {
 			keyboardHID.key1 = KB_SPACEBAR;
 			keyboardHID.modifiers = 0;
-			USBD_HID_SendReport(&hUsbDeviceFS, &keyboardHID,
-					sizeof(struct keyboardHID_t));
-			HAL_Delay(30);
+			send = 1;
 		}
 		//Numbers 1-9
 		else if (receivedData[0] >= 0x31 && receivedData[0] <= 0x39) {
 			keyboardHID.key1 = KB_1 + (receivedData[0] - 0x31);
 			keyboardHID.modifiers = 0;
-			USBD_HID_SendReport(&hUsbDeviceFS, &keyboardHID,
-					sizeof(struct keyboardHID_t));
-			HAL_Delay(30);
+			send = 1;
 		}
 		//Number 0
 		else if (receivedData[0] == 0x30) {
 			keyboardHID.key1 = KB_0;
 			keyboardHID.modifiers = 0;
-			USBD_HID_SendReport(&hUsbDeviceFS, &keyboardHID,
-					sizeof(struct keyboardHID_t));
-			HAL_Delay(30);
+			send = 1;
 		}
+		//!
+		else if (receivedData[0] == ASCII_EXCLAMATION) {
+			keyboardHID.key1 = KB_1;
+			keyboardHID.modifiers = 0x02;
+			send = 1;
+		}
+		//@
+		else if (receivedData[0] == ASCII_AT) {
+			keyboardHID.key1 = KB_2;
+			keyboardHID.modifiers = 0x02;
+			send = 1;
+		}
+		//#
+		else if (receivedData[0] == ASCII_POUND) {
+			keyboardHID.key1 = KB_3;
+			keyboardHID.modifiers = 0x02;
+			send = 1;
+		}
+		//$
+		else if (receivedData[0] == ASCII_DOLLAR) {
+			keyboardHID.key1 = KB_4;
+			keyboardHID.modifiers = 0x02;
+			send = 1;
+		}
+
+		//%
+		else if (receivedData[0] == ASCII_PERCENTAGE) {
+			keyboardHID.key1 = KB_5;
+			keyboardHID.modifiers = 0x02;
+			send = 1;
+		}
+		//^
+		else if (receivedData[0] == ASCII_CARET) {
+			keyboardHID.key1 = KB_6;
+			keyboardHID.modifiers = 0x02;
+			send = 1;
+		}
+		//&
+		else if (receivedData[0] == ASCII_AND) {
+			keyboardHID.key1 = KB_7;
+			keyboardHID.modifiers = 0x02;
+			send = 1;
+		}
+		//*
+		else if (receivedData[0] == ASCII_STAR) {
+			keyboardHID.key1 = KB_8;
+			keyboardHID.modifiers = 0x02;
+			send = 1;
+		}
+		//(
+		else if (receivedData[0] == ASCII_LEFT_PARENTH) {
+			keyboardHID.key1 = KB_9;
+			keyboardHID.modifiers = 0x02;
+			send = 1;
+		}
+		//)
+		else if (receivedData[0] == ASCII_RIGHT_PARENTH) {
+			keyboardHID.key1 = KB_0;
+			keyboardHID.modifiers = 0x02;
+			send = 1;
+		}
+
+		//`
+		else if (receivedData[0] == ASCII_ACUTE) {
+					keyboardHID.key1 = KB_ACUTE;
+					keyboardHID.modifiers = 0x00;
+					send = 1;
+				}
+		//~
+		else if (receivedData[0] == ASCII_TILDE) {
+					keyboardHID.key1 = KB_ACUTE;
+					keyboardHID.modifiers = 0x02;
+					send = 1;
+				}
+		//{
+		else if (receivedData[0] == ASCII_OPEN_BRACE) {
+					keyboardHID.key1 = KB_OPEN_BRACKET;
+					keyboardHID.modifiers = 0x02;
+					send = 1;
+				}
+		//[
+		else if (receivedData[0] == ASCII_OPEN_BRACKET) {
+					keyboardHID.key1 = KB_OPEN_BRACKET;
+					keyboardHID.modifiers = 0x00;
+					send = 1;
+				}
+		//}
+		else if (receivedData[0] == ASCII_CLOSE_BRACE) {
+					keyboardHID.key1 = KB_CLOSE_BRACKET;
+					keyboardHID.modifiers = 0x02;
+					send = 1;
+				}
+		//]
+		else if (receivedData[0] == ASCII_CLOSE_BRACKET) {
+					keyboardHID.key1 = KB_CLOSE_BRACKET;
+					keyboardHID.modifiers = 0x00;
+					send = 1;
+				}
+		// \
+
+		else if (receivedData[0] == ASCII_BACKSLASH) {
+					keyboardHID.key1 = KB_BACKSLASH;
+					keyboardHID.modifiers = 0x00;
+					send = 1;
+				}
+		//|
+		else if (receivedData[0] == ASCII_PIPE) {
+					keyboardHID.key1 = KB_BACKSLASH;
+					keyboardHID.modifiers = 0x02;
+					send = 1;
+				}
+		//:
+		else if (receivedData[0] == ASCII_COLON) {
+					keyboardHID.key1 = KB_SEMICOLON;
+					keyboardHID.modifiers = 0x02;
+					send = 1;
+				}
+		//;
+		else if (receivedData[0] == ASCII_SEMICOLON) {
+					keyboardHID.key1 = KB_SEMICOLON;
+					keyboardHID.modifiers = 0x00;
+					send = 1;
+				}
+		//"
+		else if (receivedData[0] == ASCII_QUOTE) {
+					keyboardHID.key1 = KB_QUOTE;
+					keyboardHID.modifiers = 0x02;
+					send = 1;
+				}
+		//'
+		else if (receivedData[0] == ASCII_APOSTROPHE) {
+					keyboardHID.key1 = KB_QUOTE;
+					keyboardHID.modifiers = 0x00;
+					send = 1;
+				}
+		//<
+		else if (receivedData[0] == ASCII_LESS_THAN) {
+					keyboardHID.key1 = KB_LESS_THAN;
+					keyboardHID.modifiers = 0x02;
+					send = 1;
+				}
+		//,
+		else if (receivedData[0] == ASCII_COMMA) {
+					keyboardHID.key1 = KB_LESS_THAN;
+					keyboardHID.modifiers = 0x00;
+					send = 1;
+				}
+		//>
+		else if (receivedData[0] == ASCII_GREATER_THAN) {
+					keyboardHID.key1 = KB_GREATER_THAN;
+					keyboardHID.modifiers = 0x02;
+					send = 1;
+				}
+		//.
+		else if (receivedData[0] == ASCII_PERIOD) {
+					keyboardHID.key1 = KB_GREATER_THAN;
+					keyboardHID.modifiers = 0x00;
+					send = 1;
+				}
+		//?
+		else if (receivedData[0] == ASCII_QUESTION_MARK) {
+					keyboardHID.key1 = KB_FORWARD_SLASH;
+					keyboardHID.modifiers = 0x02;
+					send = 1;
+				}
+		///
+		else if (receivedData[0] == ASCII_FORWARD_SLASH) {
+					keyboardHID.key1 = KB_FORWARD_SLASH;
+					keyboardHID.modifiers = 0x00;
+					send = 1;
+				}
+		//-
+		else if (receivedData[0] == ASCII_DASH) {
+					keyboardHID.key1 = KB_DASH;
+					keyboardHID.modifiers = 0x00;
+					send = 1;
+				}
+		//_
+		else if (receivedData[0] == ASCII_UNDERSCORE) {
+					keyboardHID.key1 = KB_DASH;
+					keyboardHID.modifiers = 0x02;
+					send = 1;
+				}
+		//+
+		else if (receivedData[0] == ASCII_PLUS){
+					keyboardHID.key1 = KB_EQUALS;
+					keyboardHID.modifiers = 0x02;
+					send = 1;
+				}
+		//=
+		else if (receivedData[0] == ASCII_EQUALS) {
+					keyboardHID.key1 = KB_EQUALS;
+					keyboardHID.modifiers = 0x00;
+					send = 1;
+				}
+
 		//Up arrow
+#ifdef OSX
 		else if (receivedData[0] == 0xe2 && receivedData[1] == 0x88
 				&& receivedData[2] == 0x91) {
+
+#else
+		else if (receivedData[0] == 0x1b && receivedData[1] == ASCII_w) {
+#endif
 			keyboardHID.key1 = KB_UP;
 			keyboardHID.modifiers = 0;
-			USBD_HID_SendReport(&hUsbDeviceFS, &keyboardHID,
-					sizeof(struct keyboardHID_t));
-			HAL_Delay(30);
+			send = 1;
 		}
 
 		//Left arrow
+#ifdef OSX
 		else if (receivedData[0] == 0xc3 && receivedData[1] == 0xa5) {
+
+#else
+		else if (receivedData[0] == 0x1b && receivedData[1] == ASCII_a) {
+#endif
 			keyboardHID.key1 = KB_LEFT;
 			keyboardHID.modifiers = 0;
-			USBD_HID_SendReport(&hUsbDeviceFS, &keyboardHID,
-					sizeof(struct keyboardHID_t));
-			HAL_Delay(30);
+			send = 1;
 		}
 		//Down arrow
+
+#ifdef OSX
 		else if (receivedData[0] == 0xc3 && receivedData[1] == 0x9f) {
+
+#else
+		else if (receivedData[0] == 0x1b && receivedData[1] == ASCII_s) {
+
+#endif
 			keyboardHID.key1 = KB_DOWN;
 			keyboardHID.modifiers = 0;
-			USBD_HID_SendReport(&hUsbDeviceFS, &keyboardHID,
-					sizeof(struct keyboardHID_t));
-			HAL_Delay(30);
+			send = 1;
 		}
 		//right arrow
+
+#ifdef OSX
 		else if (receivedData[0] == 0xe2 && receivedData[1] == 0x88
 				&& receivedData[2] == 0x82) {
+
+#else
+		else if (receivedData[0] == 0x1b && receivedData[1] == ASCII_d) {
+
+#endif
 			keyboardHID.key1 = KB_RIGHT;
 			keyboardHID.modifiers = 0;
-			USBD_HID_SendReport(&hUsbDeviceFS, &keyboardHID,
-					sizeof(struct keyboardHID_t));
-			HAL_Delay(30);
+			send = 1;
 		}
 		//Backspace
+#ifdef OSX
 		else if (receivedData[0] == 0xc5 && receivedData[1] == 0x93) {
+#else
+		else if (receivedData[0] == 0x1b && receivedData[1] == ASCII_q) {
+#endif
+
 			keyboardHID.key1 = KB_BACKSPC;
 			keyboardHID.modifiers = 0;
+			send = 1;
+		}
+
+#ifdef OSX
+		//TODO: Add delete for OSX
+#else
+		else if (receivedData[0] == 0x1b && receivedData[1] == ASCII_e) {
+#endif
+			keyboardHID.key1 = KB_DELETE;
+			keyboardHID.modifiers = 0;
+			send = 1;
+		}
+#ifdef wat
+		if (receivedData[0] != 0) {
+			keyboardHID.key1 = 0;
+			keyboardHID.modifiers = 0;
+			send = 1;
+
+		}
+#endif
+
+		//Only send report if a key has been pressed
+		if (send == 1) {
 			USBD_HID_SendReport(&hUsbDeviceFS, &keyboardHID,
 					sizeof(struct keyboardHID_t));
 			HAL_Delay(30);
-		}
-
-		if (receivedData[0] != 0) {
 			keyboardHID.key1 = 0;
 			keyboardHID.modifiers = 0;
 			USBD_HID_SendReport(&hUsbDeviceFS, &keyboardHID,
 					sizeof(struct keyboardHID_t));
-			HAL_Delay(30);
-
+			send = 0;
 		}
-
-		keyboardHID.key1 = 0;
-		keyboardHID.modifiers = 0;
-
 	}
 
 	/* USER CODE END 3 */

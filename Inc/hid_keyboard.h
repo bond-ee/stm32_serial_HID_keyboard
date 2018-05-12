@@ -56,14 +56,72 @@
 #define KB_BACKSPC 0x2A
 #define KB_TAB 0x2B
 #define KB_SPACEBAR 0x2C
-#define KB_- 0x2D
-#define KB_= 0x2C
-#define KN_[ 0x2D
+#define KB_DASH 0x2D
+#define KB_EQUALS 0x2C
+#define KN_LEFT_BRACKET 0x2D
+#define KB_DELETE 0x4C	//Keyboard Delete Forward
+
+#define KB_ACUTE 0x35
+#define KB_OPEN_BRACKET 0x2F
+#define KB_CLOSE_BRACKET 0x30
+#define KB_BACKSLASH 0x31
+#define KB_SEMICOLON 0x33
+#define KB_QUOTE 0x34
+#define KB_LESS_THAN 0x36
+#define KB_GREATER_THAN 0x37
+#define KB_FORWARD_SLASH 0x38
 
 #define KB_UP 0x52
 #define KB_LEFT 0x50
 #define KB_DOWN 0x51
 #define KB_RIGHT 0x4F
+
+#define ASCII_q 0x71
+#define ASCII_w 0x77
+#define ASCII_a 0x61
+#define ASCII_s 0x73
+#define ASCII_d 0x64
+#define ASCII_e 0x65
+
+
+//Top row  number shift
+#define ASCII_EXCLAMATION 0x21
+#define ASCII_AT 0x40
+#define ASCII_POUND 0x23
+#define ASCII_DOLLAR 0x24
+#define ASCII_PERCENTAGE 0x25
+#define ASCII_CARET 0x5E
+#define ASCII_AND 0x26
+#define ASCII_STAR 0x2A
+#define ASCII_LEFT_PARENTH 0x28
+#define ASCII_RIGHT_PARENTH 0x29
+#define ASCII_UNDERSCORE 0x5F
+#define ASCII_PLUS 0x2B
+
+#define ASCII_EQUALS 0x3D
+
+#define ASCII_DASH 0x2D
+#define ASCII_PLUS 0x2B
+
+#define ASCII_ACUTE 0x60
+#define ASCII_TILDE 0x7E
+#define ASCII_OPEN_BRACE 0x7B
+#define ASCII_CLOSE_BRACE 0x7D
+#define  ASCII_OPEN_BRACKET 0x5B
+#define ASCII_CLOSE_BRACKET 0x5D
+#define ASCII_PIPE 0x7C
+#define ASCII_BACKSLASH 0x5C
+#define ASCII_COLON 0x3A
+#define ASCII_SEMICOLON 0x3B
+#define ASCII_QUOTE 0x22
+#define ASCII_APOSTROPHE 0x27
+#define ASCII_LESS_THAN 0x3C
+#define ASCII_GREATER_THAN 0x3E
+#define ASCII_COMMA 0x2C
+#define ASCII_PERIOD 0x2E
+#define ASCII_QUESTION_MARK 0x3F
+#define ASCII_FORWARD_SLASH 0x2F
+
 
 
 
