@@ -15,6 +15,9 @@ On OSX, search for the serial port
 
 `` ls /dev/tty.* ``
 
+In Linux,
+`` dmesg | grep tty ``
+
 Then connect using screen
 
 `` screen <enter serial port here> 115200 ``
@@ -26,7 +29,9 @@ There are a few quirks, Upper and lower case letters work exactly the same as we
 - d->∂->right (alt + d)
 
 Backspace is alt + q 
+
 ~~Delete - Not currently implemented~~
+
 Delete is alt + e
 
 ~~Currently non-letters are not supported, but they may be in the future.~~
