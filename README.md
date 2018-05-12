@@ -26,10 +26,10 @@ There are a few quirks, Upper and lower case letters work exactly the same as we
 - d->∂->right (alt + d)
 
 Backspace is alt + q 
-~~Delete - Not currently implemented
+~~Delete - Not currently implemented~~
 Delete is alt + e
 
-~~Currently non-letters are not supported, but they may be in the future.
+~~Currently non-letters are not supported, but they may be in the future.~~
 
 
 
